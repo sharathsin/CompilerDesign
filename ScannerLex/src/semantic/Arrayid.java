@@ -12,6 +12,11 @@ public Arrayid(String idname, String type, String uniqueAddress, String kind,
 }
 
 
-
+@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+	String s="name:"+idname+"type"+type+"kind"+kind+"dimensions"+dimensions;
+		return s;
+	}
 
 }
