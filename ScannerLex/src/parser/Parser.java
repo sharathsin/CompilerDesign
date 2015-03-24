@@ -2023,7 +2023,7 @@ return false;
 
 	public boolean num() {
 		ArrayList<Token> sbFirst = first("num");
-		ArrayList<Token> sbFollow = follow("num");
+		ArrayList<Token > sbFollow = follow("num");
 		if (!skipErrors(sbFirst, sbFollow)) {
 
 			return false;
