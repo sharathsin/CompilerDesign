@@ -243,11 +243,12 @@ public class Parser {
 			classn=backup1.name.toString();
 			String uniqueAddress = null;
 			ClassId c=new ClassId(backup1.name.toString(), "class", uniqueAddress, " class", new SymbolT(classn));
-			
+		boolean b2=	match(t2);
 			Derivation d;
+			epsilon=false;
 			d=memDecList(c);
 			c=(ClassId) d.id;
-			if (b & b1 & match(t2) & d.d
+			if (b & b1 & b2 & d.d
 					& match(t3)
 					& match(t4)) {
 				write("classDecl -> 'class' 'id' '{' memDecList '}'';'");
@@ -266,7 +267,7 @@ public class Parser {
 		}
 		return false;
 	}
-
+static boolean epsilon;
 	public Derivation memDecList(Id c) {// memDecList -> memDec memDecList | EPSILON
 		ArrayList<Token> sbFirst = first("memDecList");
 		ArrayList<Token> sbFollow = follow("memDecList");
@@ -284,9 +285,9 @@ d.d=false;
 		if (firstFrom(nterm, new ArrayList<Token>()).contains(lookahead)) {
 			
 			d=memDec(c);
-			
+			 
 			boolean b=d.d;
-			if(b)
+			if(b&&!epsilon)
 			{
 				((ClassId)c).table.table.put(d.id.getIdname(),d.id);
 				
@@ -303,7 +304,7 @@ d.d=false;
 			
 			if (b &b1 ) {
 				d.d=true;
-				d.id=c;
+				//d.id=c;
 				write("memDecList -> memDec memDecList ");
 				return d;
 			}
@@ -313,6 +314,7 @@ d.d=false;
 		write("memDecList-> epsilon");
 		d.id=c;
 		d.d=true;
+		epsilon=true;
 			return d;
 
 		}

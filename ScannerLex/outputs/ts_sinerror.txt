@@ -1,5 +1,0 @@
-syntax error at  line number2 at {
-Syntax error at line number6 expected  {
-Syntax error at line number6 expected  }
-Syntax error at line number7 expected  ;
-syntax error at  line number7 at {
