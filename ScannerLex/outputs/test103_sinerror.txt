@@ -1,0 +1,11 @@
+syntax error at  line number5 at =
+syntax error at  line number11 at ;
+syntax error at  line number11 at ;
+syntax error at  line number11 at =
+Syntax error at line number11 expected  ;
+syntax error at  line number12 at {
+Syntax error at line number13 expected  =
+syntax error at  line number13 at then
+Syntax error at line number15 expected  ;
+syntax error at  line number15 at {
+syntax error at  line number17 at return

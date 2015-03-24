@@ -1,0 +1,28 @@
+error missing identifier before ( at16
+Syntax error you cannot declare varaibles here at line number 20
+syntax error at  line number28 at class
+Syntax error at line number29 expected  id
+Syntax error at line number30 expected  (
+Syntax error at line number30 expected  id
+syntax error at  line number30 at numint
+Syntax error at line number30 expected  numint
+syntax error at  line number30 at ;
+syntax error at  line number37 at ;
+syntax error at  line number37 at =
+syntax error at  line number37 at )
+Syntax error at line number39 expected  )
+syntax error at  line number39 at id
+Syntax error at line number39 expected  ;
+syntax error at  line number39 at then
+Syntax error at line number40 expected  )
+syntax error at  line number41 at }
+Syntax error at line number41 expected  ;
+syntax error at  line number41 at {
+syntax error at  line number42 at }
+Syntax error at line number43 expected  id
+Syntax error at line number43 expected  (
+syntax error at  line number44 at }
+syntax error at  line number45 at (
+syntax error at  line number49 at ;
+syntax error at  line number52 at =
+syntax error at  line number58 at }

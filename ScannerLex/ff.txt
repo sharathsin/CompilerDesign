@@ -1,0 +1,135 @@
+prog
+class|program
+$
+classDeclList
+class|epsilon
+program
+classDecl
+class
+program|class
+memDecList
+id|int|float|epsilon
+}
+memDec
+id|int|float
+}|int|float |id
+memDec1
+[|;|(
+}|int|float |id
+f1
+id|int|float|epsilon
+$
+funcDef
+id|int|float
+$|int|float |id
+funcHead
+id|int|float
+{
+funcBody
+{
+;
+f2
+if|for|get|return|put|int|float|id|epsilon
+}
+funcMemb
+if|for|get|return|put|int|float|id
+}|if|for|get|return|put|int|float|id|epsilon
+funMemb1
+id|[|.|=
+}|if|for|get|return|put|int|float|id|epsilon
+funMemb2
+id
+}|if|for|get|return|put|int|float|id|epsilon
+progBody
+program
+$
+statementList
+if| for| get| return| put| id|epsilon
+}
+statement
+if| for| get| return| put| id
+}|else|;|if| for| get| return| put| id
+statBlock
+{| if| for| get| return| put| id|epsilon
+else|;
+expr
+(| id| numint|numfloat| not| -|+
+)|;|,
+expr1
+<=|==|<>|<|>|>=|epsilon
+)|;|,
+arithExpr
+(|id|numint|numfloat|not|+|-
+)|;|,|<=|==|<>|<|>|>=|]
+arith
++|-|or|epsilon
+)|;|,| <=|==|<>|<|>|>=|]
+sign
++|-
++|-|not|numint|numfloat|id|(
+term
+(| id|numint|numfloat| not| +|-
+)|;|,| <=|==|<>|<|>|>=| ]|+|-|or
+te
+*|/|and|epsilon
+)|;|,| <=|==|<>|<|>|>=| ]|=|+ |-|or
+factor
+(| id|numint|numfloat| not| +|-
+)|;|,| <=|==|<>|<|>|>=| ]|+|-|or|*|/|and
+factor1
+(|epsilon
+)|;|,| <=|==|<>|<|>|>=| ]|+|-|or|*|/|and
+variable
+id
+)|=
+ListTail
+.|epsilon
+=|)|;|,|<=|==|<>|<|>|>=|]|+|-|or|*|/|and|(
+indiceList
+[|epsilon
+.|=|)|;|,|<=|==|<>|<|>|>=|]|+|- |or|*|/|and|(
+idnest
+.
+=|)|;|,|<=|==|<>|<|>|>=|]|+|-|or|*|/|and|(
+indice
+[
+.|=|)|;|,|<=|==|<>|<|>|>=|[|]|+|-,or|*|/|and|(
+arraySizeList
+[|epsilon
+;|)|,
+arraySize
+[
+;|)|,|[
+type
+id|int|float
+id
+fParams
+id|int|float|epsilon
+)
+aParams
+=|(|id|numint|numfloat|not|epsilon
+)
+fParamsTailList
+,|epsilon
+)
+fParamsTail
+,
+)|,
+aParamsTailList
+,|epsilon
+)
+aParamsTail
+,
+)|,
+relOp
+<=|==|<>|<|>|>=
+(| id| numint|numfloat| not| +|-
+addOp
++|-|or
+(| id| numint|numfloat| not| +|-
+multOp
+*|/|and
+(| id| numint|numfloat| not| +|-
+num
+numint|numfloat
+*| /| and| +| -| or| ]| )| >| <| <=| >=| <> |==| ;| ,| ;| )

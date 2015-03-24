@@ -1,0 +1,5 @@
+Syntax error you cannot declare varaibles here at line number 13
+Syntax error at line number14 expected  id
+Syntax error at line number14 expected  =
+syntax error at  line number14 at ;
+syntax error at  line number37 at float
