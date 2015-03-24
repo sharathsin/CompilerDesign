@@ -197,7 +197,7 @@ public class Parser {
 			
 			b1=funcbody();
 		((FunctionId)c).setSymbolList(functionMembList);
-			
+		Gst.table.put("program",c);
 			}
 			if (b &b1 & match(t1) & f1()) {
 				write("progBody -> 'program' funcBody ';' f1");
@@ -287,7 +287,7 @@ d.d=false;
 			d=memDec(c);
 			 
 			boolean b=d.d;
-			if(b&&!epsilon)
+			if(b)
 			{
 				((ClassId)c).table.table.put(d.id.getIdname(),d.id);
 				
@@ -295,7 +295,7 @@ d.d=false;
 			}
 			d =memDecList(c);
 			boolean b1=d.d;
-			if(b1)
+			if(b1&&!epsilon)
 			{
 				((ClassId)c).table.table.put(d.id.getIdname(),d.id);
 				

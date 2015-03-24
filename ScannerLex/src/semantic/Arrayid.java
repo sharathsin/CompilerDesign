@@ -1,6 +1,8 @@
 package semantic;
 
-public class Arrayid extends Id {
+import java.io.Serializable;
+
+public class Arrayid extends Id implements Serializable{
 int dimensions;
 
 public Arrayid(String idname, String type, String uniqueAddress, String kind,

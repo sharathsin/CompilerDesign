@@ -1,10 +1,11 @@
 package semantic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 
-public class FunctionId extends Id {
+public class FunctionId extends Id implements Serializable{
 	ArrayList<Id> parameters;
 	String classname;
 	SymbolT symbolList;

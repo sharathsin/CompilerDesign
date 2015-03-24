@@ -1,11 +1,14 @@
 package semantic;
 
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 
 
-public class SymbolT {
+public class SymbolT implements Serializable {
 	public LinkedHashMap<String,Id> table = new LinkedHashMap<String, Id>();
 	String tablename;
 	public SymbolT(String tablename) {
@@ -42,17 +45,36 @@ public class SymbolT {
 	
 	public void print(SymbolT tn) throws Exception
 	{
-	     FileOutputStream fos = new FileOutputStream(System.getProperty("user.dir")+"/symboltable/"+tn.tablename+".txt");
-	        ObjectOutputStream out = new ObjectOutputStream(fos);
-	        out.writeObject(tn.table);
-	        out.close();
+	        FileWriter f=new FileWriter(new File(System.getProperty("user.dir")+"/symboltable/"+tn.tablename+".txt"));
+	        f.write(tn.toString());
+	        f.flush();
+	        f.close();
 		
 	}
 	public void insert()
 	{
 		
 	}
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		String s=tablename;
+		for(Id i : table.values())
+		{
+			if(i instanceof ClassId)
+			s+=((ClassId)i).toString();
+			if(i instanceof Arrayid)
+			s+=((Arrayid)i).toString();
+			if(i instanceof Id)
+			s+=((Id)i).toString();
+			if(i instanceof FunctionId)
+			s+=((FunctionId)i).toString();
+			
+			
+		}
+		
+		return s;
+	}
 	
 	
 }

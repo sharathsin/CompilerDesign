@@ -1,6 +1,8 @@
 package semantic;
 
-public class Id {
+import java.io.Serializable;
+
+public class Id  implements Serializable{
 	public String getIdname() {
 		return idname;
 	}

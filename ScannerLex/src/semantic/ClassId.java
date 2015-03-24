@@ -1,6 +1,8 @@
 package semantic;
 
-public class ClassId  extends Id{
+import java.io.Serializable;
+
+public class ClassId  extends Id implements Serializable{
 public SymbolT table;
 
 public ClassId(String idname, String type, String uniqueAddress, String kind,
@@ -15,6 +17,19 @@ public SymbolT getTable() {
 
 public void setTable(SymbolT table) {
 	this.table = table;
+}
+@Override
+public String toString()
+{
+	String s=idname+"type\n"+type+"address\n"+UniqueAddress;
+	for(Id i : table.table.values())
+	{
+		s+=i.toString();
+		
+	}
+	
+	return s;
+
 }
 
 }
