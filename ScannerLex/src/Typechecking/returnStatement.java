@@ -1,5 +1,5 @@
 package Typechecking;
 
-public class returnStatement {
+public class returnStatement implements Statment {
 
 }

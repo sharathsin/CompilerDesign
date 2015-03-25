@@ -1,5 +1,5 @@
 package Typechecking;
 
-public class putStatement {
+public class putStatement implements Statment {
 
 }
