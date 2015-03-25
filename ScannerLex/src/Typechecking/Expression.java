@@ -1,5 +1,7 @@
 package Typechecking;
 
-public class Expression {
+import java.util.ArrayList;
 
+public class Expression {
+ArrayList<ArithExp>a;
 }
