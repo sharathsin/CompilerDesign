@@ -9,6 +9,17 @@ public class ArithExp {
 		{
 			return t.evaluate();
 		}
-		return null;
+		else
+		{if(t.evaluate().equals(a.evaluate()))
+		{
+			return t.evaluate();
+		}
+		else{
+			return "Invalid";
+		}
+			
+			
+			
+		}
 	}
 }

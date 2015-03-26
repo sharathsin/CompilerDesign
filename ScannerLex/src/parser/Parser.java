@@ -35,7 +35,7 @@ public class Parser {
 	ArrayList<String> term;
 	ArrayList<Token> tokenStream;
 	ArrayList<Token>undeclared;
-	SymbolT Gst;
+	static public SymbolT Gst;
 	Token lookahead;
 	String type;
 	FileWriter bf1,bfe;
