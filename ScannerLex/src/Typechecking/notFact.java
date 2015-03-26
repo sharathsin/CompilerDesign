@@ -16,6 +16,18 @@ public String evaluate()
 	{
 		return ((numFactor)f).evaluate();
 	}
+	else if(f instanceof notFact)
+	{
+		return ((notFact)f).evaluate();
+	}
+	else 
+	{
+	return ((ArithFactor)f).evaluate();
+		
+		
+	}
+	
+	
 	
 }
 }
