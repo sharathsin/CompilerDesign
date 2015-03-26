@@ -1,5 +1,13 @@
 package Typechecking;
 
-public class Variable {
+import java.util.ArrayList;
 
+public class Variable {
+ArrayList<IdList>a;
+public String evaluate()
+{
+	
+	
+return null;
+}
 }
