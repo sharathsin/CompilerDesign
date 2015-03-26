@@ -58,7 +58,7 @@ public String evaluate()
 	
 	else{
 		
-	s=ap.evalString(s);
+	s=ap.evalString(s); 
 	
 	
 	}
