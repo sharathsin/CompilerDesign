@@ -5,7 +5,7 @@ Expression ex;
 StatBlock s1,s2;
 public boolean evaluate()
 {
-return false;	
+return !ex.evaluate().equals("Invalid");	
 
 
 }

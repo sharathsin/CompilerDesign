@@ -5,7 +5,7 @@ public class AssignStatement implements Statment {
 	Expression e;
 public boolean evaluate()
 {
-	return (v.evaluate()).equals(e.evaluate());
+	return (v.evaluate()).equals(e.evaluate())&& !v.evaluate().equals("Invalid");
 	
 }
 }
