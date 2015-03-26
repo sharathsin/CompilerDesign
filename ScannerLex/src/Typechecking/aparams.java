@@ -1,5 +1,7 @@
 package Typechecking;
 
-public class aparams {
+import java.util.ArrayList;
 
+public class aparams {
+ArrayList<Expression>e;
 }
