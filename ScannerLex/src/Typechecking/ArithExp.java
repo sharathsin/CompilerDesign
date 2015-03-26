@@ -7,7 +7,7 @@ public class ArithExp {
 	{
 		if(a==null)
 		{
-			//f.toString();
+			return t.evaluate();
 		}
 		return null;
 	}

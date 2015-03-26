@@ -5,31 +5,49 @@ public class TE {
 	TE a;
 	public String evaluate()
 	{
+	String s;
+		
+		if(f instanceof SignFactor)
+		{
+		s=	((SignFactor)f).evaluate();
+		}
+		else if(f instanceof VariableFactor)
+		{ 
+	s= ((VariableFactor)f).evaluate();
+		}
+		if(f instanceof numFactor)
+		{
+	s= ((numFactor)f).evaluate();
+		}
+		else if(f instanceof notFact)
+		{
+s= ((notFact)f).evaluate();
+		}
+		else 
+		{
+	s= ((ArithFactor)f).evaluate();
+			
+			
+		}
 		if(a==null)
 		{
-			if(f instanceof SignFactor)
-			{
-				return ((SignFactor)f).evaluate();
-			}
-			else if(f instanceof VariableFactor)
-			{ 
-				return ((VariableFactor)f).evaluate();
-			}
-			if(f instanceof numFactor)
-			{
-				return ((numFactor)f).evaluate();
-			}
-			else if(f instanceof notFact)
-			{
-				return ((notFact)f).evaluate();
-			}
-			else 
-			{
-			return ((ArithFactor)f).evaluate();
-				
-				
-			}
+		return s;
 		}
-		return null;
+		else
+		{
+			if(a.evaluate().equals(s))
+			{
+				
+			return s;
+			
+			}
+			else{
+				
+			return "invalid";
+			
+			}
+			
+		}
+	//	return s;
 	}
 }

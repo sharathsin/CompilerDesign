@@ -7,8 +7,19 @@ public String evaluate()
 {
 	if(a==null)
 	{
-		t.toString();
+	return	t.evaluate();
+		
 	}
-	return null;
+	else
+	{
+		if(t.evaluate().equals(a.evaluate()))
+		{
+			return t.evaluate();
+		}
+		else{
+			return "invalid";
+		}
+	}
+	
 }
 }
