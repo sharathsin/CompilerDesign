@@ -1,9 +1,8 @@
 package Typechecking;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
+
 import parser.Parser;
-import semantic.Arrayid;
-import semantic.ClassId;
-import semantic.Id;
 import semantic.*;
 public class IdList {
 String id,classn,func;
@@ -50,7 +49,13 @@ Id f=null;
 	}
 	if(b)
 	{
-return f.getType();
+		if(f instanceof FunctionId)
+		{
+			return f.getIdname() +"*"+((FunctionId)f).getClassname();
+		}
+
+		return f.getType();
+
 	}
 	else{
 		return "Invalid";
