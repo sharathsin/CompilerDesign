@@ -67,6 +67,6 @@ public String evaluate()
 		
 	}
 	
-return null;
+return s;
 }
 }
