@@ -6,6 +6,11 @@ public class StatementList {
 
 ArrayList<Statment>s;
 String function,classname;
+public void set()
+{
+	Names.classname=classname;
+	Names.functionname=function;
+}
 public boolean  evaluate()
 {
 	boolean b=true;

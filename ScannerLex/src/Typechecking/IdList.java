@@ -6,8 +6,9 @@ import semantic.ClassId;
 import semantic.Id;
 import semantic.*;
 public class IdList {
-String id;
+String id,classn,func;
 ArithExp a;
+
 public String evalString(String classnam)
 {
 	
