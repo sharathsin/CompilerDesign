@@ -15,6 +15,19 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.Stack;
 
+import org.javatuples.Pair;
+
+import Typechecking.Arith;
+import Typechecking.ArithExp;
+import Typechecking.Expression;
+import Typechecking.Factor;
+import Typechecking.StatBlock;
+import Typechecking.StatementList;
+import Typechecking.Statment;
+import Typechecking.TE;
+import Typechecking.Term;
+import Typechecking.Variable;
+import Typechecking.aparams;
 import semantic.Arrayid;
 import semantic.ClassId;
 import semantic.FunctionId;
@@ -238,9 +251,12 @@ public class Parser {
 		}
 		if (firstFrom(nterm, new ArrayList<Token>()).contains(lookahead)) {
 			boolean b=match(t);
+			s=new StatementList();
 			int line =backup1.location.line;
+			
 			boolean b1=match(t1);
 			classn=backup1.name.toString();
+			s.classname=classn;
 			String uniqueAddress = null;
 			ClassId c=new ClassId(backup1.name.toString(), "class", uniqueAddress, " class", new SymbolT(classn));
 		boolean b2=	match(t2);
@@ -418,7 +434,7 @@ ArrayList<Id> flisArrayList;
 			  boolean c= funcbody();
 				((FunctionId)d.id).setSymbolList(functionMembList);
 			if ( b& p.d & match(t3) & c & match(t1)) {
-		
+		s.function=id;
 				write(" memDec1 -> '(' fParams ')' funcBody ';'");
 			d.d=true;
 			variablefun=true;
@@ -496,6 +512,7 @@ ArrayList<Id> flisArrayList;
 
 		return false;
 	}
+	static StatementList s;
 
 	// funcHead -> type 'id' '(' fParams ')'
 	public boolean funchead() {
@@ -901,7 +918,8 @@ nterm1.add(";");
 	 * 
 	 */
 
-	public boolean statement() {
+	public Pair<Boolean, Statment> statement() {
+		Statment s;
 		ArrayList<Token> sbFirst = first("statement");
 		ArrayList<Token> sbFollow = follow("statement");
 		Token fort = new Token();
@@ -951,7 +969,7 @@ nterm1.add(";");
 		RHS8.add("return");
 		if (!skipErrors(sbFirst, sbFollow)) {
 
-			return false;
+			return new Pair<Boolean, Statment>(false, s);
 
 		}
 		if (firstFrom(RHS1, new ArrayList<Token>()).contains(lookahead)) {
@@ -1007,7 +1025,7 @@ nterm1.add(";");
 /*
  * statBlock -> '{' statementList '}' | statement | EPSILON
  */
-	public boolean statblock() {
+	public Pair<Boolean,StatBlock>statblock() {
 		ArrayList<Token> sbFirst = first("statBlock");
 		ArrayList<Token> sbFollow = follow("statBlock");
 		Token t1= new Token();
@@ -1052,7 +1070,7 @@ nterm1.add(";");
 	 * 
 	 */
 
-	public boolean expr() {
+	public Pair<Boolean,Expression> expr() {
 		ArrayList<Token> sbFirst = first("expr");
 		ArrayList<Token> sbFollow = follow("expr");
 		if (!skipErrors(sbFirst, sbFollow)) {
@@ -1107,7 +1125,7 @@ nterm1.add(";");
 /*
  * arithExpr -> term arith
  */
-	public boolean arithExpr() {
+	public Pair <Boolean,ArithExp>arithExpr() {
 		ArrayList<Token> sbFirst = first("arithExpr");
 		ArrayList<Token> sbFollow = follow("arithExpr");
 		if (!skipErrors(sbFirst, sbFollow)) {
@@ -1136,7 +1154,7 @@ nterm1.add(";");
 /*
  * arith -> EPSILON | addOp term arith
  */
-	public boolean arith() {
+	public Pair<Boolean,Arith> arith() {
 		ArrayList<Token> sbFirst = first("arith");
 		ArrayList<Token> sbFollow = follow("arith");
 		if (!skipErrors(sbFirst, sbFollow)) {
@@ -1207,7 +1225,7 @@ nterm1.add(";");
  * term -> factor te
  * 
  */
-	public boolean term() {
+	public Pair<Boolean,Term> term() {
 		ArrayList<Token> sbFirst = first("term");
 		ArrayList<Token> sbFollow = follow("term");
 		if (!skipErrors(sbFirst, sbFollow)) {
@@ -1230,7 +1248,7 @@ nterm1.add(";");
 		return false;
 	}
 //te -> EPSILON | multOp factor te
-	public boolean te() {
+	public Pair<Boolean,TE> te() {
 		ArrayList<Token> sbFirst = first("te");
 		ArrayList<Token> sbFollow = follow("te");
 		if (!skipErrors(sbFirst, sbFollow)) {
@@ -1264,7 +1282,7 @@ nterm1.add(";");
  * 
  * 
  */
-	public boolean factor() {
+	public Pair<Boolean,Factor> factor() {
 
 		Token t1=new Token();
 		t1.value=new StringBuffer("(");
@@ -1375,7 +1393,7 @@ nterm1.add(";");
 /*
  * variable -> 'id' indiceList ListTail
  */
-	public boolean variable() {
+	public Pair<Boolean,Variable> variable() {
 		Token t1=new Token();
 		t1.value=new StringBuffer("id");
 		
@@ -1690,7 +1708,7 @@ nterm1.add(";");
 	/*
 	 * aParams -> expr aParamsTailList | EPSILON
 	 */
-	public boolean aParams() {
+	public Pair<Boolean,aparams> aParams() {
 		ArrayList<Token> sbFirst = first("aParams");
 		ArrayList<Token> sbFollow = follow("aParams");
 		if (!skipErrors(sbFirst, sbFollow)) {
