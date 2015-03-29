@@ -21,6 +21,7 @@ import Typechecking.Arith;
 import Typechecking.ArithExp;
 import Typechecking.Expression;
 import Typechecking.Factor;
+import Typechecking.IdList;
 import Typechecking.StatBlock;
 import Typechecking.StatementList;
 import Typechecking.Statment;
@@ -1565,6 +1566,7 @@ nterm1.add(";");
  * arraySize -> '[' 'int' ']'
  * 
  */
+	static ArrayList<IdList>idlist;
 	public boolean arraySize() {
 		Token t=new Token();
 		t.value=new StringBuffer("[");
