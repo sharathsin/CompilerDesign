@@ -3,7 +3,7 @@ package Typechecking;
 import java.util.ArrayList;
 
 public class StatBlock {
-	public ArrayList<Statment> s;
+	public ArrayList<Statment> s;int line;
 	public boolean  evaluate()
 	{
 		boolean b=true;

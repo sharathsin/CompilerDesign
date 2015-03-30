@@ -2,7 +2,7 @@ package Typechecking;
 
 public class TE {
 public	Factor f;
-public	TE a;
+public	TE a;int line;
 	public String evaluate()
 	{
 	String s;

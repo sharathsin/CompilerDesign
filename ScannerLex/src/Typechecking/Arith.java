@@ -1,7 +1,7 @@
 package Typechecking;
 
 public class Arith {
-public Term t;
+public Term t;int line;
 public Arith a;
 public String evaluate()
 {

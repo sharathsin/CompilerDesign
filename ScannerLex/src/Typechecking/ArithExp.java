@@ -2,7 +2,7 @@ package Typechecking;
 
 public class ArithExp {
 	public Term t;
-public	Arith a;
+public	Arith a;int line;
 	public String evaluate()
 	{
 		if(a==null)

@@ -12,7 +12,7 @@ public ArrayList<ArithExp> a1;
 
 public String evalString(String classnam)
 {
-	
+	int line;
 	boolean b=false;
 Id f=null;
 	for(Id d: Parser.Gst.table.values())

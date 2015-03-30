@@ -2,7 +2,7 @@ package Typechecking;
 
 public class num{
 String type;
-
+int line;
 public String getType() {
 	return type;
 }

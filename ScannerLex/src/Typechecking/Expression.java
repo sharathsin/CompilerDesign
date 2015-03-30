@@ -3,7 +3,7 @@ package Typechecking;
 import java.util.ArrayList;
 
 public class Expression {
-public ArrayList<ArithExp>a;
+public ArrayList<ArithExp>a;int line;
 public String evaluate()
 {
 	

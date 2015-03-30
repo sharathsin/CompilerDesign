@@ -1,7 +1,7 @@
 package Typechecking;
 
 public class notFact implements Factor {
-public Factor f;
+public Factor f;int line;
 public String evaluate()
 {
 	if(f instanceof SignFactor)

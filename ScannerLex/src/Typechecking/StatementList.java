@@ -3,7 +3,7 @@ package Typechecking;
 import java.util.ArrayList;
 
 public class StatementList {
-
+	int line;
 public ArrayList<Statment>s;
 public String function;
 public String classname;

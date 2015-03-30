@@ -3,7 +3,7 @@ package Typechecking;
 import semantic.Id;
 
 public class ForStatement implements Statment {
-Id d;
+Id d;int line;
 Expression exp,exp1;
 public Id getD() {
 	return d;

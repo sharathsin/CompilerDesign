@@ -2,7 +2,7 @@ package Typechecking;
 
 public class SignFactor implements Factor {
 public Factor f;
-
+int line;
 public String evaluate() {
 	// TODO Auto-generated method stub
 	if(f instanceof SignFactor)
