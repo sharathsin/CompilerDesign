@@ -7,6 +7,10 @@ public class StatementList {
 public ArrayList<Statment>s;
 public String function;
 public String classname;
+public StatementList()
+{
+	s=new ArrayList<Statment>();
+}
 public void set()
 {
 	Names.classname=classname;

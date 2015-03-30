@@ -1,5 +1,5 @@
 GlobalUtilitytype
 classaddress
-nullname:var1typeintkind'arraydimensions7semantic.Id@55f96302Utilitytype
+nullsemantic.FunctionId@5a01ccaaUtilitytype
 classaddress
-nullname:var1typeintkind'arraydimensions7semantic.Id@55f96302semantic.FunctionId@3d4eac69semantic.FunctionId@3d4eac69semantic.FunctionId@42a57993semantic.FunctionId@42a57993
+nullsemantic.FunctionId@5a01ccaasemantic.FunctionId@71c7db30semantic.FunctionId@71c7db30semantic.FunctionId@19bb089bsemantic.FunctionId@19bb089b

@@ -453,11 +453,11 @@ ArrayList<Id> flisArrayList;
 			s=new StatementList();
 			s.classname=classn;
 			s.function=id;
-			
+			boolean dp= match(t3);
 			  boolean c= funcbody();
 			 l.add(s);
 				((FunctionId)d.id).setSymbolList(functionMembList);
-			if ( b& p.d & match(t3) & c & match(t1)) {
+			if ( b& p.d & dp& c & match(t1)) {
 		s.function=id;
 				write(" memDec1 -> '(' fParams ')' funcBody ';'");
 			d.d=true;
@@ -874,6 +874,7 @@ ArrayList<Id> flisArrayList;
 				
 				returnStatement r=new returnStatement();
 				r.expr=d.getValue1();
+				s.s.add(r);
 				write("funcMemb->return(expr) ;");
 				classvariable=true;
 				return true;
