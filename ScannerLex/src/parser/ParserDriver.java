@@ -8,7 +8,7 @@ public class ParserDriver {
 		// TODO Auto-generated method stub
 	Parser p=new Parser();
 	boolean b=p.parseFile();
-
+System.out.println(p.l.size());
 	if(b){
 	System.out.println("NoErrors");
 	try {

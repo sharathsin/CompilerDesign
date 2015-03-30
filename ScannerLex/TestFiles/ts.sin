@@ -2,7 +2,12 @@ class Utility
 {
  int var1[4][5][7][8][9][1][0];
  float var2;
- 
+ float randomize()
+{
+ float value;
+
+ return (value);
+};
 };
 program {
  int sample[100];
@@ -10,6 +15,12 @@ program {
  int maxValue;
  int minValue;
  Utility utility;
+ idx=1;
+ for(int i=0;i<5;i=i+1)
+ {
+ maxValue=i;
+ 
+ };
 
 };
 float randomize()

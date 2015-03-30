@@ -7,7 +7,7 @@ import semantic.ClassId;
 import semantic.FunctionId;
 import semantic.Id;
 public class Variable {
-ArrayList<IdList>a;
+public ArrayList<IdList>a;
 public String evaluate()
 {Id d1,d2;
 	IdList a1=a.get(0);

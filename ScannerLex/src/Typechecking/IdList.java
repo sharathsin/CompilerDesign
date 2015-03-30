@@ -1,12 +1,14 @@
 package Typechecking;
 
+import java.util.ArrayList;
+
 import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 
 import parser.Parser;
 import semantic.*;
 public class IdList {
-String id;
-public ArithExp a;
+public String id;
+public ArrayList<ArithExp> a1;
 
 public String evalString(String classnam)
 {
@@ -34,10 +36,11 @@ Id f=null;
 	{
 		return"invalid";
 	}
-	if(a!=null)
+	if(a1!=null)
 	{
 		if(f instanceof Arrayid)
 		{
+			for(ArithExp a: a1)
 			if(a.evaluate().equals("int"))
 			return f.getType(); 
 			
