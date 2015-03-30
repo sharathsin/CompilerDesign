@@ -1,7 +1,7 @@
 package Typechecking;
 
 public class returnStatement implements Statment {
-Expression expr;
+public Expression expr;
 
 public boolean evaulate()
 {

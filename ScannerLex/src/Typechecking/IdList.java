@@ -5,8 +5,8 @@ import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 import parser.Parser;
 import semantic.*;
 public class IdList {
-String id,classn,func;
-ArithExp a;
+String id;
+public ArithExp a;
 
 public String evalString(String classnam)
 {

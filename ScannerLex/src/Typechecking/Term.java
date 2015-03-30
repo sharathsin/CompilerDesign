@@ -1,8 +1,8 @@
 package Typechecking;
 
 public class Term {
-Factor f;
-TE a;
+public Factor f;
+public TE a;
 public String evaluate()
 {
 String s;

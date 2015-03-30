@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class StatementList {
 
-ArrayList<Statment>s;
+public ArrayList<Statment>s;
 public String function;
 public String classname;
 public void set()

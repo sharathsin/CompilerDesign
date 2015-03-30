@@ -1,8 +1,8 @@
 package Typechecking;
 
 public class TE {
-	Factor f;
-	TE a;
+public	Factor f;
+public	TE a;
 	public String evaluate()
 	{
 	String s;

@@ -21,7 +21,9 @@ import Typechecking.Arith;
 import Typechecking.ArithExp;
 import Typechecking.Expression;
 import Typechecking.Factor;
+import Typechecking.ForStatement;
 import Typechecking.IdList;
+import Typechecking.IfStatement;
 import Typechecking.StatBlock;
 import Typechecking.StatementList;
 import Typechecking.Statment;
@@ -29,6 +31,9 @@ import Typechecking.TE;
 import Typechecking.Term;
 import Typechecking.Variable;
 import Typechecking.aparams;
+import Typechecking.getStatement;
+import Typechecking.putStatement;
+import Typechecking.returnStatement;
 import semantic.Arrayid;
 import semantic.ClassId;
 import semantic.FunctionId;
@@ -725,9 +730,23 @@ ArrayList<Id> flisArrayList;
 			return false;
 
 		} else if (firstFrom(RHS4, new ArrayList<Token>()).contains(lookahead)) {
-			if (match(ift) & match(Opar) & expr() & match(Cpar)
-					& match(then) & statblock() & match(elset)
-					& statblock() & match(semi)) {
+			boolean b=match(ift);
+			boolean c=match(Opar);
+			Pair<Boolean, Expression> c1=expr();
+			boolean d1=match(Cpar);
+			boolean g2=match(then);
+			Pair <Boolean ,StatBlock> d=statblock();
+			boolean f=match(elset);
+			
+			Pair <Boolean ,StatBlock> d3=statblock();
+			if (b & c& c1.getValue0() & d1
+					& g2 & d.getValue0() &f 
+					& d3.getValue0() & match(semi)) {
+				IfStatement i=new IfStatement();
+				i.setEx(c1.getValue1());
+				i.setS1(d.getValue1());
+				i.setS2(d3.getValue1());
+				s.s.add(i);
 				classvariable=true;
 				write("funcMemb->if(expr)then statBlock else statBlock ;");
 				return true;
@@ -737,10 +756,46 @@ ArrayList<Id> flisArrayList;
 		}
 		
 		else if (firstFrom(RHS5, new ArrayList<Token>()).contains(lookahead)) {
-			if (match(fort) & match(Opar) & type() & match(id) & match(assign)
-					& expr() & match(semi) & arithExpr() & relOp()
-					& arithExpr() & match(semi) & variable() & match(assign)
-					& expr() & match(Cpar) & statblock() & match(semi)) {
+			boolean f=match(fort) ;
+			boolean f1= match(Opar);
+			boolean f2=type();
+			boolean f3=match(id);
+			String id1 =backup1.name.toString();
+			
+			boolean f4=match(assign);
+			Pair<Boolean,Expression> e=expr();
+			boolean f5= match(semi) ;
+			Pair<Boolean,ArithExp>g=arithExpr();
+			boolean f6=relOp();
+			Pair<Boolean,ArithExp>g1=arithExpr();
+			boolean f7=match(semi);
+			Pair<Boolean,Variable>v1=variable();
+			boolean f8=match(assign);
+			Pair<Boolean,Expression>e2=expr();
+			boolean f9=match(Cpar);
+			Pair<Boolean,StatBlock>c=statblock();
+			boolean f10=match(semi);
+			
+			
+			
+				
+			if (f&f1 & f2 & f3 & f4
+					& e.getValue0() & f5& g.getValue0() &f6
+					&g1.getValue0() & f7 & v1.getValue0() & f8
+					& e2.getValue0() & f9 & c.getValue0() & f10) {
+				
+				ForStatement i=new ForStatement();
+			i.setD(new Id(id1, type, null, "id"));
+			i.setA1(g.getValue1());	
+			i.setA2(g1.getValue1());
+			i.setExp(e.getValue1());
+			i.setExp1(e2.getValue1());
+			i.setS1(c.getValue1());
+			i.setV1(v1.getValue1());
+				s.s.add(i);
+				
+				
+				
 				write("funcMemb->for(type id =expr;arithexpr relOp arithExpr; variable = expr) statBlock  ;");
 				
 				classvariable=true;
@@ -750,7 +805,18 @@ ArrayList<Id> flisArrayList;
 
 		}
 		else if (firstFrom(RHS6, new ArrayList<Token>()).contains(lookahead)) {
-			if (match(get)&match(Opar) &variable()& match(Cpar)&match(semi)) {
+			
+			
+			boolean b=match(get);
+			boolean b1=match(Opar);
+			Pair<Boolean,Variable>c=variable();
+			boolean b2=match(Cpar);
+			boolean b3=match(semi);
+			if (b1&b2 &c.getValue0()& b2&b3) {
+				
+				getStatement g=new getStatement();
+				g.e=c.getValue1();
+				s.s.add(g);
 				write("funcMemb->get(variable) ;");
 				classvariable=true;
 				return true;
@@ -759,7 +825,15 @@ ArrayList<Id> flisArrayList;
 
 		}
 		else if (firstFrom(RHS7, new ArrayList<Token>()).contains(lookahead)) {
-			if (match(put)&match(Opar) &expr()& match(Cpar)&match(semi)) {
+			boolean b2=match(put);
+			boolean b3= match(Opar);
+			Pair<Boolean,Expression>c=expr();
+			boolean b4=match(Cpar);
+			boolean b5=match(semi);
+			if (b2&b3 &c.getValue0()& b4&b5) {
+				putStatement p=new putStatement();
+				p.e=c.getValue1();
+				s.s.add(p);
 				write("funcMemb->put(expr) ;");
 				classvariable=true;
 				return true;
@@ -768,7 +842,16 @@ ArrayList<Id> flisArrayList;
 
 		}
 		else if (firstFrom(RHS8, new ArrayList<Token>()).contains(lookahead)) {
-			if (match(ret)&match(Opar) &expr()& match(Cpar)&match(semi)) {
+			boolean b=match(ret);
+			boolean b1=match(Opar);
+			Pair<Boolean, Expression>d=expr();
+			boolean b2=match(Cpar);
+			boolean b3=match(semi);
+			
+			if (b&b1 &d.getValue0()& b2&b3) {
+				
+				returnStatement r=new returnStatement();
+				r.expr=d.getValue1();
 				write("funcMemb->return(expr) ;");
 				classvariable=true;
 				return true;
@@ -823,6 +906,7 @@ nterm1.add(";");
 
 		} 
 		else	if (firstFrom(nterm1	, new ArrayList<Token>()).contains(lookahead)) {
+			boolean b=indiceList();
 			if (indiceList()&ListTail()&match(t)&expr()&match(t1) ) {
 				classvariable=true;
 				write("funMemb1 -> indiceList ListTail '=' expr ';'");
@@ -875,6 +959,7 @@ nterm1.add(";");
 	
 		return false;
 	}
+	static ArrayList<Statment>fg;
 //statementList -> statement statementList | EPSILON
 	public boolean statementList() {
 		ArrayList<Token> sbFirst = first("statementList");
@@ -886,10 +971,12 @@ nterm1.add(";");
 		if (!skipErrors(sbFirst, sbFollow)) {
 
 			return false;
-
+ 
 		}
 		if (firstFrom(nterm, new ArrayList<Token>()).contains(lookahead)) {
-			if (statement()&statementList() ) {
+			Pair<Boolean, Statment>s=statement();
+			if (s.getValue0()&statementList() ) {
+				fg.add(s.getValue1());
 				write("statementList -> statement statementList");
 				return true;
 			}
@@ -903,7 +990,7 @@ nterm1.add(";");
 		
 			return true;
 		}
-		return true;
+		return false;
 
 	}
 	/*statement -> variable '=' expr ';'
@@ -1035,7 +1122,7 @@ nterm1.add(";");
 		t2.value=new StringBuffer("}");
 		if (!skipErrors(sbFirst, sbFollow)) {
 
-			return false;
+			return new Pair<Boolean, StatBlock>(false, null);
 
 		}
 		ArrayList<String> nterm = new ArrayList<String>();
@@ -1047,22 +1134,26 @@ nterm1.add(";");
 				return true;
 			}
 			
-			return false;
+			return new Pair<Boolean, StatBlock>(false, null);
 
 		} 
 		else if (firstFrom(nterm1, new ArrayList<Token>()).contains(lookahead)) {
-			if (statement() ) {
-				return true;
+			Pair<Boolean, Statment>s=statement();
+			if (s.getValue0()) {
+				StatBlock s1=new StatBlock();
+				s1.s=new ArrayList<Statment>();
+				s1.s.add(s.getValue1());
+				return new Pair<Boolean, StatBlock>(true, s1);
 			}
 			
-			return false;
+			return new Pair<Boolean, StatBlock>(false, null);
 
 		} 
 		else if(sbFollow.contains(lookahead))
 		{
-			return true;
+			return new Pair<Boolean, StatBlock>(true, null);
 		}
-			return false;
+		return new Pair<Boolean, StatBlock>(false, null);
 	}
 	/*
 	 * 
@@ -1076,7 +1167,7 @@ nterm1.add(";");
 		ArrayList<Token> sbFollow = follow("expr");
 		if (!skipErrors(sbFirst, sbFollow)) {
 
-			return false;
+			return new Pair<Boolean, Expression>(false, null);
 
 		}
 		ArrayList<String> nterm = new ArrayList<String>();
@@ -1087,12 +1178,12 @@ nterm1.add(";");
 				return true;
 			}
 			
-			return false;
+			return new Pair<Boolean, Expression>(false, null);
 
 		} 
 		
 		
-		return false;
+		return new Pair<Boolean, Expression>(false, null);
 	}
 /*
  * 
@@ -1110,7 +1201,8 @@ nterm1.add(";");
 		ArrayList<String> nterm = new ArrayList<String>();
 		nterm.add("relOp");
 		if (firstFrom(nterm, new ArrayList<Token>()).contains(lookahead)) {
-			if (relOp()&arithExpr() ) {
+			Pair<Boolean, ArithExp>a=arithExpr();
+			if (relOp()&a.getValue0() ) {
 				return true;
 			}
 			
@@ -1131,26 +1223,32 @@ nterm1.add(";");
 		ArrayList<Token> sbFollow = follow("arithExpr");
 		if (!skipErrors(sbFirst, sbFollow)) {
 
-			return false;
+			return new Pair<Boolean, ArithExp>(false, null);
 
 		}
 		ArrayList<String> nterm = new ArrayList<String>();
 		nterm.add("term");
 		nterm.add("arith");
 		if (firstFrom(nterm, new ArrayList<Token>()).contains(lookahead)) {
-			if (term()&arith() ) {
-				return true;
+			Pair<Boolean, Term>c=term();
+			Pair<Boolean, Arith>a=arith();
+			if (c.getValue0()&a.getValue0() ) {
+				ArithExp a2=new ArithExp();
+				a2.t= c.getValue1();
+				a2.a=a.getValue1();
+				Pair<Boolean, ArithExp> a1=new Pair<Boolean, ArithExp>(true,a2 );
+				return a1;
 			}
 			
-			return false;
+			return new Pair<Boolean, ArithExp>(false, null);
 
 		} 
 		else if(sbFollow.contains(lookahead))
 		{
-			return true;
+			return new Pair<Boolean, ArithExp>(true, null);
 		}
 		
-		return false;
+		return new Pair<Boolean, ArithExp>(false, null);
 	}
 /*
  * arith -> EPSILON | addOp term arith
@@ -1160,7 +1258,7 @@ nterm1.add(";");
 		ArrayList<Token> sbFollow = follow("arith");
 		if (!skipErrors(sbFirst, sbFollow)) {
 
-			return false;
+			return new Pair<Boolean, Arith>(false, null);
 
 		}
 		ArrayList<String> nterm = new ArrayList<String>();
@@ -1172,14 +1270,14 @@ nterm1.add(";");
 				return true;
 			}
 			
-			return false;
+			return new Pair<Boolean, Arith>(false, null);
 
 		} 
 		else if(sbFollow.contains(lookahead))
 		{
-			return true;
+			return new Pair<Boolean, Arith>(true, null);
 		}
-		return false;
+		return new Pair<Boolean, Arith>(false, null);
 
 	}
 /*
@@ -1254,7 +1352,7 @@ nterm1.add(";");
 		ArrayList<Token> sbFollow = follow("te");
 		if (!skipErrors(sbFirst, sbFollow)) {
 
-			return false;
+			return new Pair<Boolean, TE>(false, null);
 
 		}
 		ArrayList<String> nterm = new ArrayList<String>();
@@ -1262,17 +1360,22 @@ nterm1.add(";");
 		nterm.add("factor");
 		nterm.add("te");
 		if (firstFrom(nterm, new ArrayList<Token>()).contains(lookahead)) {
-			if (multOp()&factor()&te() ) {
-				return true;
+			Pair<Boolean, Factor>f=factor();
+			Pair<Boolean, TE> f1=te();
+			if (multOp()&f.getValue0()&f1.getValue0() ) {
+				TE r=new TE();
+			r.a=f1.getValue1();
+			r.f=f.getValue1();
+				return new Pair<Boolean, TE>(true, r);
 			}
 			
-			return false;
+			return new Pair<Boolean, TE>(false, null);
 
 		} 		
 		else if(sbFollow.contains(lookahead))
-			return true;
+			return new Pair<Boolean, TE>(true, null);
 
-		return false;
+		return new Pair<Boolean, TE>(false, null);
 	}
 /*
  * factor          -> ( arithExpr ) 
@@ -1297,7 +1400,7 @@ nterm1.add(";");
 		ArrayList<Token> sbFollow = follow("factor");
 		if (!skipErrors(sbFirst, sbFollow)) {
 
-			return false;
+			return new Pair<Boolean, Factor>(false, null);
 
 		}
 		ArrayList<String>RHS1=new ArrayList<String>();
@@ -1315,7 +1418,7 @@ nterm1.add(";");
 				return true;
 			}
 			
-			return false;
+			return new Pair<Boolean, Factor>(false, null);
 
 		}
 		else	if (firstFrom(RHS2, new ArrayList<Token>()).contains(lookahead)) {
@@ -1323,7 +1426,7 @@ nterm1.add(";");
 				return true;
 			}
 			
-			return false;
+			return new Pair<Boolean, Factor>(false, null);
 
 		} 
 		else if (firstFrom(RHS3, new ArrayList<Token>()).contains(lookahead)) {
@@ -1331,7 +1434,7 @@ nterm1.add(";");
 				return true;
 			}
 			
-			return false;
+			return new Pair<Boolean, Factor>(false, null);
 
 		} 
 		else if (firstFrom(RHS4, new ArrayList<Token>()).contains(lookahead)) {
@@ -1339,7 +1442,7 @@ nterm1.add(";");
 				return true;
 			}
 			
-			return false;
+			return new Pair<Boolean, Factor>(false, null);
 
 		} 
 		else if (firstFrom(RHS5, new ArrayList<Token>()).contains(lookahead)) {
@@ -1347,11 +1450,11 @@ nterm1.add(";");
 				return true;
 			}
 			
-			return false;
+			return new Pair<Boolean, Factor>(false, null);
 
 		} 
 
-		return false;
+		return new Pair<Boolean, Factor>(false, null);
 	}
 //factor1         -> ( aParams ) | EPSILON 
 	public boolean factor1() {
@@ -1402,7 +1505,7 @@ nterm1.add(";");
 		ArrayList<Token> sbFollow = follow("variable");
 		if (!skipErrors(sbFirst, sbFollow)) {
 
-			return false;
+			return new Pair<Boolean, Variable>(false, null);
 
 		}
 		ArrayList<String>RHS1=new ArrayList<String>();
@@ -1412,12 +1515,12 @@ nterm1.add(";");
 				return true;
 			}
 			
-			return false;
+			return new Pair<Boolean, Variable>(false, null);
 
 		}	
 		
 		
-		return false;
+		return new Pair<Boolean, Variable>(false, null);
 	}
 //ListTail -> idnest ListTail | EPSILON
 	public boolean ListTail() {
@@ -1715,27 +1818,31 @@ nterm1.add(";");
 		ArrayList<Token> sbFollow = follow("aParams");
 		if (!skipErrors(sbFirst, sbFollow)) {
 
-			return false;
+			return new Pair<Boolean, aparams>(false, null);
 
 		}
 		ArrayList<String>RHS1=new ArrayList<String>();
 		RHS1.add("expr");
 		if (firstFrom(RHS1, new ArrayList<Token>()).contains(lookahead)) {
-			if (expr()& aParamsTailList() ) {
+			Pair<Boolean, Expression>c=expr();
+			
+			if (c.getValue0()& aParamsTailList() ) {
+				aparams a=new aparams();
+				
 				write(" aParams -> expr aParamsTailList");
-				return true;
+				return new Pair<Boolean, aparams>(true, a);
 			}
 			
-			return false;
+			return new Pair<Boolean, aparams>(false, null);
 
 		}	else if(sbFollow.contains(lookahead))
 		{
-			return true;
+			return new Pair<Boolean, aparams>(true, null);
 		}	
 
 
 		
-		return false; // -> expr aParamsTailList | EPSILON
+		return new Pair<Boolean, aparams>(false, null); // -> expr aParamsTailList | EPSILON
 	}
 //fParamsTailList -> fParamsTail fParamsTailList | EPSILON
 	public Params fParamsTailList(Params p) {
@@ -1849,6 +1956,7 @@ nterm1.add(";");
 		return false; // -> aParamsTail aParamsTailList | EPSILON
 	}
 //aParamsTail -> ',' expr
+	static ArrayList<Expression>f1;
 	public boolean aParamsTail() {
 		
 		ArrayList<Token> sbFirst = first("aParamsTail");
@@ -1864,7 +1972,10 @@ nterm1.add(";");
 		Token t = new Token();
 		t.value = new StringBuffer(",");
 		if (firstFrom(RHS1, new ArrayList<Token>()).contains(lookahead)) {
-		if (match(t) & expr()){
+			boolean f=match(t);
+			Pair<Boolean, Expression> e= expr();
+		if (f & e.getValue0()){
+		f1.add(e.getValue1());
 		write("aParamsTail -> ',' expr");
 			return true;
 		}
