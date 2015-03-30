@@ -913,7 +913,10 @@ nterm1.add(";");
 		} 
 		else	if (firstFrom(nterm1	, new ArrayList<Token>()).contains(lookahead)) {
 			boolean b=indiceList();
-			if (indiceList()&ListTail()&match(t)&expr()&match(t1) ) {
+			boolean b1=ListTail();
+			boolean c=match(t);
+			Pair<Boolean, Expression>b2=expr();
+			if (b&b1&c&b2.getValue0()&match(t1) ) {
 				classvariable=true;
 				write("funMemb1 -> indiceList ListTail '=' expr ';'");
 				return true;
@@ -1063,7 +1066,7 @@ nterm1.add(";");
 		RHS8.add("return");
 		if (!skipErrors(sbFirst, sbFollow)) {
 
-			return new Pair<Boolean, Statment>(false, s);
+			return new Pair<Boolean, Statment>(false, null);
 
 		}
 		if (firstFrom(RHS1, new ArrayList<Token>()).contains(lookahead)) {
@@ -1102,7 +1105,7 @@ nterm1.add(";");
 				write("funcMemb->if(expr)then statBlock else statBlock ;");
 				return new Pair<Boolean, Statment>(true,i);
 			}
-			return false;
+			return new Pair<Boolean, Statment>(false, null);
 
 		}
 		
@@ -1170,7 +1173,7 @@ nterm1.add(";");
 			//	s.s.add(g);
 				write("funcMemb->get(variable) ;");
 				classvariable=true;
-				return new Pair<Boolean, Statment>(true,i);
+				return new Pair<Boolean, Statment>(true,g);
 			}
 			return new Pair<Boolean, Statment>(false, null);
 
@@ -1278,6 +1281,7 @@ nterm1.add(";");
 		nterm.add("arithExpr");
 		nterm.add("expr1");
 		if (firstFrom(nterm, new ArrayList<Token>()).contains(lookahead)) {
+			
 			if (arithExpr()&expr1() ) {
 				return true;
 			}
@@ -1440,8 +1444,13 @@ nterm1.add(";");
 		nterm.add("factor");
 		nterm.add("te");
 		if (firstFrom(nterm, new ArrayList<Token>()).contains(lookahead)) {
-			if (factor()&te() ) {
-				return true;
+			Pair<Boolean, Factor>t=factor();
+			Pair<Boolean, TE>f=te();
+			if (t.getValue0()&f.getValue0() ) {
+				Term te=new Term();
+				te.a=f.getValue1();
+				te.f=t.getValue1();
+				return new Pair<Boolean, Term>(true, te);
 			}
 			
 			return new Pair<Boolean, Term>(false, null);
@@ -1593,7 +1602,9 @@ nterm1.add(";");
 		
 		if (firstFrom(RHS1, new ArrayList<Token>()).contains(lookahead)) {
 		Token t=backup;	
-			if (match(t1)&aParams()& match(t2) ) {
+		boolean b=match(t1);
+		Pair<Boolean, aparams>a=aParams();
+			if (b&a.getValue0()& match(t2) ) {
 				if(!t.value.toString().equals("]"))
 				return true;
 				else{
@@ -1631,7 +1642,8 @@ nterm1.add(";");
 		RHS1.add("id");
 		if (firstFrom(RHS1, new ArrayList<Token>()).contains(lookahead)) {
 			if (match(t1)&indiceList()& ListTail() ) {
-				return true;
+				Variable v=new Variable();
+				return new Pair<Boolean, Variable>(true, v);
 			}
 			
 			return new Pair<Boolean, Variable>(false, null);
@@ -1710,7 +1722,9 @@ nterm1.add(";");
 		ArrayList<String>RHS1=new ArrayList<String>();
 		RHS1.add("[");
 		if (firstFrom(RHS1, new ArrayList<Token>()).contains(lookahead)) {
-			if (match(t)& arithExpr() &match(t1)) {
+			boolean b=match(t);
+			Pair<Boolean, ArithExp>c=arithExpr();
+			if (b& c.getValue0() &match(t1)) {
 				paramscheck=true;
 				return true;
 			}
@@ -2297,7 +2311,7 @@ static String num;
 		}
 		if (firstFrom(RHS2, new ArrayList<Token>()).contains(lookahead)) {
 		 if (match(t1)){
-			 num="float"
+			 num="float";
 			 write("num-> 'numfloat'");
 			 return true;
 		 }
