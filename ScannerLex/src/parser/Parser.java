@@ -394,6 +394,7 @@ d.d=false;
 static int dime;
 SymbolT functionMembList;
 ArrayList<Id> flisArrayList;
+ArrayList<Integer>a1;
 	public Derivation memDec1(String type,String id) {// memDec1 -> arraySizeList ';' | '(' fParams ')'
 								// funcBody ';'
 		ArrayList<Token> sbFirst = first("memDec1");
@@ -421,10 +422,14 @@ ArrayList<Id> flisArrayList;
 		}
 		if (firstFrom(nterm, new ArrayList<Token>()).contains(lookahead)) {
 			dime=0;
+			a1=new ArrayList<Integer>();
 			boolean b=arraySizeList();
 			if(dime!=0)
-		d.id=new Arrayid(id, type, null, "'array", dime);
-			else{
+			{
+				
+		d.id=new Arrayid(id, type, null, "'array", a1);
+			}	
+		else{
 				d.id=new Id(id, type, null, "id");
 				
 			}
@@ -982,7 +987,7 @@ nterm1.add(";");
 		dime =0;
 		boolean b1=arraySizeList();
 		if(dime!=0){
-			functionMembList.table.put(name, new Arrayid(name, type, null, "array", dime));
+			functionMembList.table.put(name, new Arrayid(name, type, null, "array", a1));
 			
 		}
 		else{
@@ -1901,7 +1906,11 @@ nterm1.add(";");
 		ArrayList<String>RHS1=new ArrayList<String>();
 		RHS1.add("[");
 		if (firstFrom(RHS1, new ArrayList<Token>()).contains(lookahead)) {
-			if (match(t)& match(t1)&match(t2) ) {
+		boolean b=	match(t);
+		boolean b1=match(t1);
+		Integer a=Integer.parseInt(backup1.name.toString());
+			if (b& b1&match(t2) ) {
+				a1.add(a);
 				write("arraySize -> '[' 'int' ']'");
 				return true;
 			}
@@ -1990,10 +1999,11 @@ nterm1.add(";");
 			boolean b1=match(t2);
 			String name=backup1.name.toString();
 			dime=0;
+			a1=new ArrayList<Integer>();
 			boolean d=arraySizeList();
 			if(dime!=0)
 			{
-				c=new Arrayid(name, type, null, "array", dime);
+				c=new Arrayid(name, type, null, "array", a1);
 			}
 			else
 			{
@@ -2116,9 +2126,10 @@ nterm1.add(";");
 			dime=0;
 			boolean d1= arraySizeList();
 			Id c;
+			a1=new ArrayList<Integer>();
 			if(dime!=0)
 			{
-			c=new Arrayid(name, type, null,"array", dime);	
+			c=new Arrayid(name, type, null,"array", a1);	
 			
 			}
 			else{
