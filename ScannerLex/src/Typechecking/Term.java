@@ -15,7 +15,7 @@ String s;
 	{ 
 s= ((VariableFactor)f).evaluate();
 	}
-	if(f instanceof numFactor)
+	else if(f instanceof numFactor)
 	{
 s= ((numFactor)f).evaluate();
 	}
@@ -23,6 +23,7 @@ s= ((numFactor)f).evaluate();
 	{
 s= ((notFact)f).evaluate();
 	}
+	
 	else 
 	{
 s= ((ArithFactor)f).evaluate();

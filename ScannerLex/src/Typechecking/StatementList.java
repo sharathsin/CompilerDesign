@@ -28,21 +28,24 @@ if(s1 instanceof ForStatement)
 		b=false;
 	}
 }
-if(s1 instanceof getStatement)
+else if(s1 instanceof getStatement)
 {
 	if(! ((getStatement) s1).validate())
 	{
 		b=false;
 	}
 }
-if(s1 instanceof putStatement)
+else if(s1 instanceof putStatement)
 {
 	if(! ((putStatement) s1).validate())
 	{
 		b=false;
 	}
 }
-
+else if(s1 instanceof AssignStatement)
+{
+	if(! ((AssignStatement) s1).evaluate())b=false;
+}
 else{
 	if(! ((returnStatement) s1).evaulate())b=false;
 }

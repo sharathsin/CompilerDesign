@@ -1,27 +1,27 @@
 class Utility
 {
 int a;
-float a;
+
+
  float randomize()
 {
- float value;
+
+   float value;
 value=1.34;
  return (value);
 };
- float randomize()
-{
- float value;
-value=1.34;
- return (value);
-};
+
 };
 program {
  int sample[100];
+ 
+
  int idx;
  int maxValue;
  int minValue;
  Utility utility;
  idx=1;
+ c=0;
  for(int i=0;i<5;i=i+1)
  {
  maxValue=i;
@@ -31,15 +31,12 @@ program {
 };
 float randomize()
 {
- float value;
+
+
+  float value;
 
  return (value);
 };
-float randomize()
-{
- float value;
 
- return (value);
-};
  
  

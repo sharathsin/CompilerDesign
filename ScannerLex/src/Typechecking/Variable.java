@@ -8,23 +8,28 @@ import semantic.FunctionId;
 import semantic.Id;
 public class Variable {
 public ArrayList<IdList>a;int line;
-public String evaluate()
+public String evaluate() throws NullPointerException
 {Id d1,d2;
+if(a==null)
+	return "invalid";
 	IdList a1=a.get(0);
 	if(Names.classname!=null){
 	 ClassId d=(ClassId) Parser.Gst.table.get(Names.classname);
 	FunctionId d3=(FunctionId)d.table.table.get(Names.functionname);
 	d1=d3.getSymbolList().table.get(a1.id);
 	ArrayList<Id>id=d3.getParameters();
+	
 	for(Id d4:id)
 	{
 		if(d4.getIdname().equals(a1.id))
 		{
+			a1.id=d1.getIdname();
 			d1=d4;
 		}
 	}
 			if(d1==null)
 			{
+				Parser.write1("Undeclared variable at"+line);
 				return "Invalid";
 					
 			}	
@@ -34,6 +39,7 @@ public String evaluate()
 		FunctionId d3=(FunctionId) Parser.Gst.table.get(Names.functionname);
 		d1=d3.getSymbolList().table.get(a1.id);
 		ArrayList<Id>id=d3.getParameters();
+		if(id!=null)
 		for(Id d4:id)
 		{
 			if(d4.getIdname().equals(a1.id))
@@ -41,19 +47,26 @@ public String evaluate()
 				d1=d4;
 			}
 		}
-				if(d1==null)
+				if(d1==null&& id!=null)
 				{
+					Parser.write1("Undeclared variable at"+line);
 					return "Invalid";
 				}
 		
+	}
+	if(d1==null)
+	{
+		Parser.write1("Undeclared variable at"+line);
+		return "Invalid";
 	}
 	String s=d1.getType();
 	for(int i=1;i<a.size();i++)
 	{
 	IdList ap=	a.get(i);
 	if(ap.evalString(s).equals("Invalid"))
-	{
-		return s;
+	{	Parser.write1("Undeclared variable at"+line);
+	return "Invalid";
+	//	return s;
 	}
 	
 	else{

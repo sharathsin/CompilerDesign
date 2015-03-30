@@ -5,7 +5,9 @@ public Variable b;
 public aparams a;int line;
 public String evaluate() {
 	// TODO Auto-generated method stub
-	return null;
+	
+
+	return" ";
 }
 
 }

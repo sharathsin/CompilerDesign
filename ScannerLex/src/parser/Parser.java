@@ -65,11 +65,13 @@ public class Parser {
 	static public SymbolT Gst;
 	Token lookahead;
 	String type;
-	FileWriter bf1,bfe;
+	FileWriter bf1;
+	static FileWriter bfe;
 	static int line;
 	Token backup,backup1;
 	ArrayList<TokenChecker> a;
 	static String classn;
+	ArrayList<Typec>c;
  boolean paramscheck,variablefun,classvariable;
 	public Parser() {
 		paramscheck=false;
@@ -80,6 +82,7 @@ public class Parser {
 		term = new ArrayList<String>(Arrays.asList(yoken));
 		a=new ArrayList<TokenChecker>();
 		FollowandFirst f1 = new FollowandFirst();
+		c=new ArrayList<Typec>();
 		f1.parse();
 		first = f1.s;
 		follow = f1.f;
@@ -404,6 +407,7 @@ static int dime;
 SymbolT functionMembList;
 ArrayList<Id> flisArrayList;
 ArrayList<Integer>a1;
+
 	public Derivation memDec1(String type,String id) {// memDec1 -> arraySizeList ';' | '(' fParams ')'
 								// funcBody ';'
 		ArrayList<Token> sbFirst = first("memDec1");
@@ -487,6 +491,7 @@ ArrayList<Integer>a1;
 
 	// f1 -> funcDef f1 | EPSILON
 static int function_line;
+ArrayList<Id>fparams;
 	public boolean f1() {
 
 		ArrayList<Token> sbFirst = first("f1");
@@ -503,8 +508,10 @@ static int function_line;
 			int line =lookahead.location.line;
 			if (funcdef() & f1()) {
 				l.add(s);
-				if(!Gst.table.containsKey(id_fun))
-				Gst.table.put(id_fun, (Id)new FunctionId(id_fun, type, null, "function",p1.rr , null, functionMembList));
+				if(!Gst.table.containsKey(id_fun)){
+					fparams=p1.rr;
+					Gst.table.put(id_fun, (Id)new FunctionId(id_fun, type, null, "function",p1.rr , null, functionMembList));
+				}
 				else{
 				write1("error function : "+ id_fun+" has multiple declarations at line number"+(function_line-1));	
 				return false;
@@ -729,11 +736,16 @@ String yt;
 		}
 		if (firstFrom(RHS1, new ArrayList<Token>()).contains(lookahead)) {
 			boolean b=match(id);
+			boolean err=true;
 			type=backup1.name.toString();
+			lineno =backup1.location.line;
+		
+		
+			
 			yt=type;
 			if (b & funcMemb1()) {
 				write("funcMemb -> 'id' funMemb1");
-				return true;
+				return err;
 			}
 			return false;
 
@@ -804,9 +816,24 @@ String yt;
 			boolean f=match(fort) ;
 			boolean f1= match(Opar);
 			boolean f2=type();
-			boolean f3=match(id);
-			String id1 =backup1.name.toString();
+		
+			//String id1 =backup1.name.toString();
+	String type=this.type;
 			
+			boolean f3=match(id);
+			String name=backup1.name.toString();
+			int line =backup1.location.line;
+			boolean err=true;
+			String id1 =backup1.name.toString();
+			if(!functionMembList.table.containsKey(name))
+			{
+			functionMembList.table.put(name, new Id(name, type, null, "id"));
+			
+			}
+			else{
+				write1( "Mutliple declarations of  "+name +"at"+(line-1));
+				err=false;
+			}
 			boolean f4=match(assign);
 			Pair<Boolean,Expression> e=expr();
 			boolean f5= match(semi) ;
@@ -844,7 +871,7 @@ String yt;
 				write("funcMemb->for(type id =expr;arithexpr relOp arithExpr; variable = expr) statBlock  ;");
 				
 				classvariable=true;
-				return true;
+				return err;
 			}
 			return false;
 
@@ -938,6 +965,7 @@ nterm1.add(";");
 			Token r=lookahead;
 			if (funcMemb2() ) {
 				if(!classvariable){
+					
 					write("funMemb1 -> funMemb2");
 					return true;
 				
@@ -956,7 +984,7 @@ nterm1.add(";");
 			v.a=new ArrayList<IdList>();
 			IdList i=new IdList();
 			i.id=type;
-		
+		    i.line=backup1.location.line;
 			g=new ArrayList<ArithExp>();
 			boolean b=indiceList();
 			i.a1=g;
@@ -1005,17 +1033,40 @@ nterm1.add(";");
 		a1=new ArrayList<Integer>();
 		dime =0;
 		boolean b1=arraySizeList();
+		Typec c1=new Typec();
+		c1.type=type;
+		c1.line=backup1.location.line;
+		boolean err=true;
+		if((!Gst.table.containsKey(c1.type))&&(!c1.type.equals("int"))&&(!c1.type.equals("float")))
+		{
+			write1(type +" cannnot be resolved as type at line "+(c1.line-1));
+			err=false;
+		}
 		if(dime!=0){
+			if(!functionMembList.table.containsKey(name))
+			{
 			functionMembList.table.put(name, new Arrayid(name, type, null, "array", a1));
 			
+			}
+			else{
+				write1( "Mutliple declarations of  "+name +"at"+(c1.line-1));
+				err=false;
+			}
 		}
 		else{
+			if(!functionMembList.table.containsKey(name))
+			{
 			functionMembList.table.put(name, new Id(name, type, null, "id"));
 			
+			}
+			else{
+				write1( "Mutliple declarations of  "+name +"at"+(c1.line-1));
+				err=false;
+			}
 		}
 			if (b&b1&match(t1) ) {
 				write("funMemb2 -> 'id' arraySizeList ';'");
-				return true;
+				return err;
 			}
 			return false;
 
@@ -1169,9 +1220,23 @@ nterm1.add(";");
 			boolean f=match(fort) ;
 			boolean f1= match(Opar);
 			boolean f2=type();
-			boolean f3=match(id);
-			String id1 =backup1.name.toString();
+			String type=this.type;
 			
+			boolean f3=match(id);
+			String name=backup1.name.toString();
+			int line =backup1.location.line;
+			boolean err=true;
+			String id1 =backup1.name.toString();
+			if(!functionMembList.table.containsKey(name))
+			{
+			functionMembList.table.put(name, new Id(name, type, null, "id"));
+			
+			}
+			else{
+				write1( "Mutliple declarations of  "+name +"at"+(line-1));
+				err=false;
+			}
+		//	functionMembList.table.put(name, new Id(name, type, null, "id"));
 			boolean f4=match(assign);
 			Pair<Boolean,Expression> e=expr();
 			boolean f5= match(semi) ;
@@ -1209,7 +1274,7 @@ nterm1.add(";");
 				write("funcMemb->for(type id =expr;arithexpr relOp arithExpr; variable = expr) statBlock  ;");
 				
 				classvariable=true;
-				return new Pair<Boolean, Statment>(true,i);
+				return new Pair<Boolean, Statment>(err,i);
 			}
 			return new Pair<Boolean, Statment>(false, null);
 
@@ -1623,6 +1688,7 @@ nterm1.add(";");
 			 idnmae=backup1.name.toString();
 			 IdList i=new IdList();
 			i.id=idnmae;
+			i.line=backup1.location.line;
 			g=new ArrayList<ArithExp>();
 			boolean b1=indiceList();
 			 i.a1=g;
@@ -1859,6 +1925,7 @@ nterm1.add(";");
 			if (b&match(t1)&indiceList()) {
 				i.id=idnmae;
 				i.a1=g;
+				i.line=backup1.location.line;
 				idlis.add(i);
 				write("idnest -> '.' 'id' indiceList");
 				return true;
@@ -1985,6 +2052,15 @@ nterm1.add(";");
 		else	if (firstFrom(RHS3, new ArrayList<Token>()).contains(lookahead)) {
 			if (match(t2) ) {
 				type=backup1.name.toString();
+				Typec c1=new Typec();
+				c1.line=backup1.location.line;
+				c1.type=type;
+				if(!Gst.table.containsKey(c1.type))
+				{
+					write1(type +" cannnot be resolved as type at line "+(c1.line-1));
+					return false;
+				}
+				c.add(c1);
 				a.add(new TokenChecker(backup1.location.line,type));
 				write("type->id");
 				return true;
@@ -2502,7 +2578,7 @@ public void write(String s)
 	}
 	
 }
-public void write1(String s)
+public static  void write1(String s)
 {
 	try {
 		if(s!=null)

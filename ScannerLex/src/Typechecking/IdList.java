@@ -9,10 +9,9 @@ import semantic.*;
 public class IdList {
 public String id;
 public ArrayList<ArithExp> a1;
-
+public int line;
 public String evalString(String classnam)
 {
-	int line;
 	boolean b=false;
 Id f=null;
 	for(Id d: Parser.Gst.table.values())

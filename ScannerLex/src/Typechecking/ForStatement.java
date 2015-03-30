@@ -52,7 +52,14 @@ Variable v1;
 StatBlock s1;
 public boolean isValid()
 {
-return a1.evaluate().equals(a2.evaluate())& (d.getType().equals(exp)& v1.evaluate().equals(exp1));	
+	String a=a1.evaluate();
+	String b=a2.evaluate();
+	String c=d.getType();
+	String d1=exp.evaluate();
+	String e=v1.evaluate();
+	String f=exp1.evaluate();
+	
+return  a1.evaluate().equals(a2.evaluate())& (d.getType().equals(exp)& v1.evaluate().equals(exp1)) ;	
 
 }
 
