@@ -35,6 +35,13 @@ public class FunctionId extends Id implements Serializable{
 	public void setSymbolList(SymbolT symbolList) {
 		this.symbolList = symbolList;
 	}
+	@Override
+	public String toString() {
+		
+		
+		return "FunctionId [parameters=" + parameters + ", classname="
+				+ classname + ", symbolList=" + symbolList + "]";
+	}
 	
 	
 	

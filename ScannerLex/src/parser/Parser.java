@@ -643,7 +643,7 @@ ArrayList<Id> flisArrayList;
 		return false;
 
 	}
-
+String yt;
 	/*
 	 * funcMemb -> 'id' funMemb1 | 'int' funMemb2 | 'float' funMemb2 | 'if' '('
 	 * expr ')' 'then' statBlock 'else' statBlock ';' | for ( type id = expr ;
@@ -707,7 +707,7 @@ ArrayList<Id> flisArrayList;
 		if (firstFrom(RHS1, new ArrayList<Token>()).contains(lookahead)) {
 			boolean b=match(id);
 			type=backup1.name.toString();
-			
+			yt=type;
 			if (b & funcMemb1()) {
 				write("funcMemb -> 'id' funMemb1");
 				return true;
@@ -929,10 +929,25 @@ nterm1.add(";");
 
 		} 
 		else	if (firstFrom(nterm1	, new ArrayList<Token>()).contains(lookahead)) {
+			Variable v=new Variable();
+			v.a=new ArrayList<IdList>();
+			IdList i=new IdList();
+			i.id=type;
+		
+			g=new ArrayList<ArithExp>();
 			boolean b=indiceList();
+			i.a1=g;
+			v.a.add(i);
+			idlis=new ArrayList<IdList>();
 			boolean b1=ListTail();
+			v.a.addAll(idlis);
 			boolean c=match(t);
 			Pair<Boolean, Expression>b2=expr();
+			Expression e=b2.getValue1();
+		 AssignStatement a=new AssignStatement();
+		 a.e=e;
+		 a.v=v;
+		 s.s.add(a);
 			if (b&b1&c&b2.getValue0()&match(t1) ) {
 				classvariable=true;
 				write("funMemb1 -> indiceList ListTail '=' expr ';'");

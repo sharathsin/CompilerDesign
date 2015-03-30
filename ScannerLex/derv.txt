@@ -3,8 +3,12 @@ fParams -> Epsilon
 arraySizeList -> EPSILON
 funMemb2 -> 'id' arraySizeList ';'
 funcMemb -> 'float' funMemb2
+num-> 'numfloat'
+funMemb1 -> indiceList ListTail '=' expr ';'
+funcMemb -> 'id' funMemb1
 funcMemb->return(expr) ;
 f2->epsilon
+f2 -> funcMemb f2
 f2 -> funcMemb f2
 f2 -> funcMemb f2
 funcBody -> '{' f2 '}'

@@ -3,6 +3,11 @@ package semantic;
 import java.io.Serializable;
 
 public class Id  implements Serializable{
+	@Override
+	public String toString() {
+		return "Id [idname=" + idname + ", type=" + type + ", UniqueAddress="
+				+ UniqueAddress + ", kind=" + kind + "]";
+	}
 	public String getIdname() {
 		return idname;
 	}
