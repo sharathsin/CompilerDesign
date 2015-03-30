@@ -1,0 +1,3 @@
+Multiple declarations of a at line no5
+Multiple declarations of randomize at line no12
+error function : randomize has multiple declarations at line number38

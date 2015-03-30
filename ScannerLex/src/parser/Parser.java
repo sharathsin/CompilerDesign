@@ -289,7 +289,7 @@ public class Parser {
 				if(!Gst.table.containsKey(c.getIdname()))
 				Gst.table.put(c.getIdname(), c);
 				else{
-					write1("Error Class"+c.getIdname()+"Multiple Declarations at line no"+line);
+					write1("Error Class"+c.getIdname()+" Multiple Declarations at line no"+line);
 					return false;
 				}
 		//		l.add(s);
@@ -303,6 +303,7 @@ public class Parser {
 		return false;
 	}
 static boolean epsilon;
+int lineno;
 	public Derivation memDecList(Id c) {// memDecList -> memDec memDecList | EPSILON
 		ArrayList<Token> sbFirst = first("memDecList");
 		ArrayList<Token> sbFollow = follow("memDecList");
@@ -324,15 +325,22 @@ d.d=false;
 			boolean b=d.d;
 			if(b)
 			{
+				if(!((ClassId)c).table.table.containsKey(d.id.getIdname()))
 				((ClassId)c).table.table.put(d.id.getIdname(),d.id);
-				
+				else{
+					write1("Multiple declarations of "+d.id.getIdname()+" at line no"+(lineno-1));
+				}
 				
 			}
 			d =memDecList(c);
 			boolean b1=d.d;
 			if(b1&&!epsilon)
 			{
-				((ClassId)c).table.table.put(d.id.getIdname(),d.id);
+				if(!((ClassId)c).table.table.containsKey(d.id.getIdname()))
+					((ClassId)c).table.table.put(d.id.getIdname(),d.id);
+					else{
+						write1("Multiple declarations of"+d.id.getIdname()+"at line no"+(lineno-1));
+					}
 				
 				
 			}
@@ -379,6 +387,7 @@ d.d=false;
 			String type =this.type;
 			boolean b1=match(t1);
 			String id=backup1.name.toString();
+			lineno= backup1.location.line;
 			d=memDec1(type,id);
 			if (b &b1 & d.d) {
 				write("memDec->type 'id' memDec1");
@@ -477,7 +486,7 @@ ArrayList<Integer>a1;
 	}
 
 	// f1 -> funcDef f1 | EPSILON
-
+static int function_line;
 	public boolean f1() {
 
 		ArrayList<Token> sbFirst = first("f1");
@@ -491,9 +500,17 @@ ArrayList<Integer>a1;
 
 		}
 		if (firstFrom(nterm, new ArrayList<Token>()).contains(lookahead)) {
+			int line =lookahead.location.line;
 			if (funcdef() & f1()) {
 				l.add(s);
+				if(!Gst.table.containsKey(id_fun))
 				Gst.table.put(id_fun, (Id)new FunctionId(id_fun, type, null, "function",p1.rr , null, functionMembList));
+				else{
+				write1("error function : "+ id_fun+" has multiple declarations at line number"+(function_line-1));	
+				return false;
+				
+				}
+					
 				write("f1 -> funcDef f1");
 				return true;
 			}
@@ -569,6 +586,7 @@ ArrayList<Integer>a1;
 		if (firstFrom(nterm, new ArrayList<Token>()).contains(lookahead)) {
 			boolean b=type();
 			boolean b1=match(t1);
+			function_line=backup1.location.line;
 			id_fun=backup1.name.toString();
 			s=new StatementList();
 			s.classname=null;
@@ -984,6 +1002,7 @@ nterm1.add(";");
 		if (firstFrom(nterm, new ArrayList<Token>()).contains(lookahead)) {
 		boolean b=	match(t);
 		String name =backup1.name.toString();
+		a1=new ArrayList<Integer>();
 		dime =0;
 		boolean b1=arraySizeList();
 		if(dime!=0){

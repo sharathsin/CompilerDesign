@@ -1,6 +1,13 @@
 class Utility
 {
-
+int a;
+float a;
+ float randomize()
+{
+ float value;
+value=1.34;
+ return (value);
+};
  float randomize()
 {
  float value;
@@ -28,4 +35,11 @@ float randomize()
 
  return (value);
 };
+float randomize()
+{
+ float value;
+
+ return (value);
+};
+ 
  
