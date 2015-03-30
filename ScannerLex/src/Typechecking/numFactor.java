@@ -1,7 +1,7 @@
 package Typechecking;
 
 public class numFactor implements Factor {
-num n;
+public num n;
 
 public String evaluate()
 {

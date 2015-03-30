@@ -1,7 +1,7 @@
 package Typechecking;
 
 public class SignFactor implements Factor {
-Factor f;
+public Factor f;
 
 public String evaluate() {
 	// TODO Auto-generated method stub

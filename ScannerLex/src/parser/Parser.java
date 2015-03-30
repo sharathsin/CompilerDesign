@@ -19,11 +19,14 @@ import org.javatuples.Pair;
 
 import Typechecking.Arith;
 import Typechecking.ArithExp;
+import Typechecking.ArithFactor;
+import Typechecking.AssignStatement;
 import Typechecking.Expression;
 import Typechecking.Factor;
 import Typechecking.ForStatement;
 import Typechecking.IdList;
 import Typechecking.IfStatement;
+import Typechecking.SignFactor;
 import Typechecking.StatBlock;
 import Typechecking.StatementList;
 import Typechecking.Statment;
@@ -32,6 +35,9 @@ import Typechecking.Term;
 import Typechecking.Variable;
 import Typechecking.aparams;
 import Typechecking.getStatement;
+import Typechecking.notFact;
+import Typechecking.num;
+import Typechecking.numFactor;
 import Typechecking.putStatement;
 import Typechecking.returnStatement;
 import semantic.Arrayid;
@@ -1061,54 +1067,152 @@ nterm1.add(";");
 
 		}
 		if (firstFrom(RHS1, new ArrayList<Token>()).contains(lookahead)) {
-			if (variable()&match(assign) & expr()&match(semi)) {
+			Pair<Boolean, Variable>v=variable();
+			boolean b=match(assign);
+			Pair<Boolean, Expression>e=expr();
+			boolean b1=match(semi);
+			if (v.getValue0()&b &e.getValue0()&b1) {
+				AssignStatement s1=new AssignStatement();
+				s1.v=v.getValue1();
+				s1.e=e.getValue1();
 				write("statement -> variable '=' expr ';'");
-				return true;
+				return new Pair<Boolean, Statment>(true, s1);
 			}
-			return false;
+			return new Pair<Boolean, Statment>(false, null);
 
 		}  else if (firstFrom(RHS4, new ArrayList<Token>()).contains(lookahead)) {
-			if (match(ift) & match(Opar) & expr() & match(Cpar)
-					& match(then) & statblock() & match(elset)
-					& statblock() & match(semi)) {
-				return true;
+			boolean b=match(ift);
+			boolean c=match(Opar);
+			Pair<Boolean, Expression> c1=expr();
+			boolean d1=match(Cpar);
+			boolean g2=match(then);
+			Pair <Boolean ,StatBlock> d=statblock();
+			boolean f=match(elset);
+			
+			Pair <Boolean ,StatBlock> d3=statblock();
+			if (b & c& c1.getValue0() & d1
+					& g2 & d.getValue0() &f 
+					& d3.getValue0() & match(semi)) {
+				IfStatement i=new IfStatement();
+				i.setEx(c1.getValue1());
+				i.setS1(d.getValue1());
+				i.setS2(d3.getValue1());
+				//s.s.add(i);
+				classvariable=true;
+				write("funcMemb->if(expr)then statBlock else statBlock ;");
+				return new Pair<Boolean, Statment>(true,i);
 			}
 			return false;
 
 		}
+		
 		else if (firstFrom(RHS5, new ArrayList<Token>()).contains(lookahead)) {
-			if (match(fort) & match(Opar)&type()&match(id)&match(assign) & expr() & match(semi)
-	&	arithExpr() &	relOp() & arithExpr()		& match(semi) & variable() & match(assign)
-			&expr()&match(Cpar)		& statblock() & match(semi)) {
-				return true;
+			boolean f=match(fort) ;
+			boolean f1= match(Opar);
+			boolean f2=type();
+			boolean f3=match(id);
+			String id1 =backup1.name.toString();
+			
+			boolean f4=match(assign);
+			Pair<Boolean,Expression> e=expr();
+			boolean f5= match(semi) ;
+			Pair<Boolean,ArithExp>g=arithExpr();
+			boolean f6=relOp();
+			Pair<Boolean,ArithExp>g1=arithExpr();
+			boolean f7=match(semi);
+			Pair<Boolean,Variable>v1=variable();
+			boolean f8=match(assign);
+			Pair<Boolean,Expression>e2=expr();
+			boolean f9=match(Cpar);
+			Pair<Boolean,StatBlock>c=statblock();
+			boolean f10=match(semi);
+			
+			
+			
+				
+			if (f&f1 & f2 & f3 & f4
+					& e.getValue0() & f5& g.getValue0() &f6
+					&g1.getValue0() & f7 & v1.getValue0() & f8
+					& e2.getValue0() & f9 & c.getValue0() & f10) {
+				
+				ForStatement i=new ForStatement();
+			i.setD(new Id(id1, type, null, "id"));
+			i.setA1(g.getValue1());	
+			i.setA2(g1.getValue1());
+			i.setExp(e.getValue1());
+			i.setExp1(e2.getValue1());
+			i.setS1(c.getValue1());
+			i.setV1(v1.getValue1());
+			//	s.s.add(i);
+				
+				
+				
+				write("funcMemb->for(type id =expr;arithexpr relOp arithExpr; variable = expr) statBlock  ;");
+				
+				classvariable=true;
+				return new Pair<Boolean, Statment>(true,i);
 			}
-			return false;
+			return new Pair<Boolean, Statment>(false, null);
 
 		}
 		else if (firstFrom(RHS6, new ArrayList<Token>()).contains(lookahead)) {
-			if (match(get)&match(Opar) &variable()& match(Cpar)&match(semi)) {
-				return true;
+			
+			
+			boolean b=match(get);
+			boolean b1=match(Opar);
+			Pair<Boolean,Variable>c=variable();
+			boolean b2=match(Cpar);
+			boolean b3=match(semi);
+			if (b1&b2 &c.getValue0()& b2&b3) {
+				
+				getStatement g=new getStatement();
+				g.e=c.getValue1();
+			//	s.s.add(g);
+				write("funcMemb->get(variable) ;");
+				classvariable=true;
+				return new Pair<Boolean, Statment>(true,i);
 			}
-			return false;
+			return new Pair<Boolean, Statment>(false, null);
 
 		}
 		else if (firstFrom(RHS7, new ArrayList<Token>()).contains(lookahead)) {
-			if (match(put)&match(Opar) &expr()& match(Cpar)&match(semi)) {
-				return true;
+			boolean b2=match(put);
+			boolean b3= match(Opar);
+			Pair<Boolean,Expression>c=expr();
+			boolean b4=match(Cpar);
+			boolean b5=match(semi);
+			if (b2&b3 &c.getValue0()& b4&b5) {
+				putStatement p=new putStatement();
+				p.e=c.getValue1();
+		//		s.s.add(p);
+				write("funcMemb->put(expr) ;");
+				classvariable=true;
+				return new Pair<Boolean, Statment>(true,p);
 			}
-			return false;
+			return new Pair<Boolean, Statment>(false, null);
 
 		}
 		else if (firstFrom(RHS8, new ArrayList<Token>()).contains(lookahead)) {
-			if (match(ret)&match(Opar) &expr()& match(Cpar)&match(semi)) {
-				return true;
+			boolean b=match(ret);
+			boolean b1=match(Opar);
+			Pair<Boolean, Expression>d=expr();
+			boolean b2=match(Cpar);
+			boolean b3=match(semi);
+			
+			if (b&b1 &d.getValue0()& b2&b3) {
+				
+				returnStatement r=new returnStatement();
+				r.expr=d.getValue1();
+				write("funcMemb->return(expr) ;");
+				classvariable=true;
+				return new Pair<Boolean, Statment>(true,r);
 			}
-			return false;
+			return new Pair<Boolean, Statment>(false, null);
 
 		}
 
 
-		return false;
+		return new Pair<Boolean, Statment>(false, null);
 	}
 /*
  * statBlock -> '{' statementList '}' | statement | EPSILON
@@ -1329,7 +1433,7 @@ nterm1.add(";");
 		ArrayList<Token> sbFollow = follow("term");
 		if (!skipErrors(sbFirst, sbFollow)) {
 
-			return false;
+			return new Pair<Boolean, Term>(false, null);
 
 		}
 		ArrayList<String> nterm = new ArrayList<String>();
@@ -1340,11 +1444,11 @@ nterm1.add(";");
 				return true;
 			}
 			
-			return false;
+			return new Pair<Boolean, Term>(false, null);
 
 		} 		
 		
-		return false;
+		return new Pair<Boolean, Term>(false, null);
 	}
 //te -> EPSILON | multOp factor te
 	public Pair<Boolean,TE> te() {
@@ -1414,8 +1518,12 @@ nterm1.add(";");
 		ArrayList<String>RHS5=new ArrayList<String>();
 		RHS5.add("sign");
 		if (firstFrom(RHS1, new ArrayList<Token>()).contains(lookahead)) {
-			if (match(t1)&arithExpr()& match(t2) ) {
-				return true;
+			boolean b=match(t1);
+			Pair<Boolean, ArithExp>a=arithExpr();
+			if (b&a.getValue0()& match(t2) ) {
+				ArithFactor f=new ArithFactor();
+				f.a=a.getValue1();
+				return new Pair<Boolean, Factor>(true, f);
 			}
 			
 			return new Pair<Boolean, Factor>(false, null);
@@ -1430,8 +1538,12 @@ nterm1.add(";");
 
 		} 
 		else if (firstFrom(RHS3, new ArrayList<Token>()).contains(lookahead)) {
-			if (match(t4)&factor() ) {
-				return true;
+			boolean b=match(t4);
+			Pair<Boolean, Factor>b1=factor();
+			if (b&b1.getValue0()) {
+				notFact f=new notFact();
+				f.f=b1.getValue1();
+				return new Pair<Boolean, Factor>(true, f);
 			}
 			
 			return new Pair<Boolean, Factor>(false, null);
@@ -1439,15 +1551,22 @@ nterm1.add(";");
 		} 
 		else if (firstFrom(RHS4, new ArrayList<Token>()).contains(lookahead)) {
 			if (num() ) {
-				return true;
+				numFactor f=new numFactor();
+				f.n=new num();
+				f.n.setType(num);
+				return new Pair<Boolean, Factor>(true, f);
 			}
 			
 			return new Pair<Boolean, Factor>(false, null);
 
 		} 
 		else if (firstFrom(RHS5, new ArrayList<Token>()).contains(lookahead)) {
-			if (sign()&factor() ) {
-				return true;
+			boolean b=sign();
+			Pair<Boolean, Factor> c=factor();
+			if (b&c.getValue0() ) {
+			SignFactor s=new SignFactor();
+			s.f=c.getValue1();
+				return new Pair<Boolean, Factor>(true,s);
 			}
 			
 			return new Pair<Boolean, Factor>(false, null);
@@ -2151,7 +2270,7 @@ return false;
 		}
 		return false; // -> '*' | '/' | 'and'
 	}
-
+static String num;
 	public boolean num() {
 		ArrayList<Token> sbFirst = first("num");
 		ArrayList<Token > sbFollow = follow("num");
@@ -2171,12 +2290,14 @@ return false;
 		if (firstFrom(RHS1, new ArrayList<Token>()).contains(lookahead)) {
 		if (match(t)){
 		write("num-> 'numInt'");
+		num="int";
 			return true;
 		}
 		return false;
 		}
 		if (firstFrom(RHS2, new ArrayList<Token>()).contains(lookahead)) {
 		 if (match(t1)){
+			 num="float"
 			 write("num-> 'numfloat'");
 			 return true;
 		 }
