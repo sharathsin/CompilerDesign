@@ -5,6 +5,6 @@ public Expression expr;
 int line;
 public boolean evaulate()
 {
-	return false;
+	return !expr.evaluate().equals("Invalid");
 }
 }

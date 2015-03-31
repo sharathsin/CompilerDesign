@@ -1,5 +1,6 @@
-Syntax error you cannot declare varaibles here at line number 13
-Syntax error at line number14 expected  id
-Syntax error at line number14 expected  =
-syntax error at  line number14 at ;
-syntax error at  line number37 at float
+Multiple declarations of a at line no5
+Multiple declarations of a at line no17
+Error ClassUtility Multiple Declarations at line no15
+variable cannnot be resolved as type at line 32
+value1is not declared no such variable at23
+value1is not declared no such variable at23
