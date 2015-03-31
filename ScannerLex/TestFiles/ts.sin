@@ -22,11 +22,12 @@ program {
  Utility utility;
  idx=1;
  c=0;
- for(int i=0;i<5;i=i+1)
- {
- maxValue=i;
- 
- };
+for(int i=0;i<8;i=i+1)
+{
+maxValue=i;
+
+
+};
 
 };
 float randomize()

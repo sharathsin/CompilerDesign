@@ -1801,9 +1801,24 @@ nterm1.add(";");
 		}
 		ArrayList<String>RHS1=new ArrayList<String>();
 		RHS1.add("id");
+		
 		if (firstFrom(RHS1, new ArrayList<Token>()).contains(lookahead)) {
-			if (match(t1)&indiceList()& ListTail() ) {
+			boolean b=match(t1);
+			String id=backup1.name.toString();
+			IdList i=new IdList();
+			i.id=id;
+			g=new ArrayList<ArithExp>();
+		 boolean b1=	indiceList();
+		 i.a1=g;
+		 idlis=new ArrayList<IdList>();
+		 idlis.add(i);
+			
+			
+			if (b&b1& ListTail() ) {
 				Variable v=new Variable();
+				
+				v.a=new ArrayList<IdList>();
+				v.a=idlis;
 				return new Pair<Boolean, Variable>(true, v);
 			}
 			

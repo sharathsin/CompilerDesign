@@ -1,4 +1,3 @@
-error missing identifier before ( at13
-Syntax error you cannot create variables here at line number38
-error missing identifier before ( at54
-Syntax error you cannot declare varaibles here at line number 58
+Multiple declarations of a at line no4
+Multiple declarations of randomize at line no14
+error function : randomize has multiple declarations at line number38
